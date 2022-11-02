@@ -1,0 +1,23 @@
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <div class="collaspan navbar-callaspan">
+      <div class="navbar-header">
+        <a *ngIf="authenticationService.isLoggedIn()" class="navbar-brand" routerLink="Home">Home</a>
+      </div>
+      <ul *ngIf="authenticationService.isLoggedIn()" class="nav navbar-nav">
+        <li *ngIf="authenticationService.isAdminUser()" routerLinkActive="active"><a routerLink="Product">Product</a></li>
+        <li *ngIf="authenticationService.isAdminUser()" routerLinkActive="active"><a routerLink="Module">Module</a></li>
+        <li routerLinkActive="active"><a routerLink="Group">Group</a></li>
+        <li routerLinkActive="active"><a routerLink="Sector">Sector</a></li>
+      </ul>
+
+      <ul class="nav navbar-nav navbar-right">
+        <li *ngIf="!authenticationService.isLoggedIn()" routerLinkActive="active"> <a routerLink="Login"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+        <li *ngIf="authenticationService.isLoggedIn()" (click)="logOut()" routerLinkActive="active"> <a routerLink="Login"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
+      </ul>
+      <div class="navbar-right">
+        <span *ngIf="authenticationService.isLoggedIn()" class="navbar-text">Welcome : {{authenticationService.getUsername()}}</span>
+      </div>
+    </div>
+  </div>
+</nav>

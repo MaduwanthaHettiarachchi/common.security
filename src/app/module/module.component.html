@@ -1,0 +1,89 @@
+<form  [formGroup]="form" #f="ngForm">
+    <div class="form-group">
+        <table class="table table-hover table-dark">
+            <thead>
+                <tr>
+                    <th scope="col">Id</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Description</th>
+                    <th scope="col">Status</th>
+                    <th scope="col">ProductId</th>
+                    <th scope="col">Product Name</th>
+                    <th scope="col">Delete</th>
+                </tr>
+            </thead>
+            <tbody *ngFor="let module of modules">
+                <tr>
+                    <th scope="row">{{module['id']}}</th>
+                    <td>{{module['name']}} </td>
+                    <td>{{module['description']}} </td>
+                    <td>{{module['status']}} </td>
+                    <td>{{module['productId']}} </td>
+                    <td>{{module['productName']}} </td>
+                    <td><button (click)="delete(module['id'])" class="btn btn-danger">Delete</button> </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="form-group">
+        <label for="productid">Product</label>
+        <div class="row">
+            <div class="col-sm-6">
+                <!-- <input id="productid" type="text" class="form-control"> -->
+                <select formControlName="productid" id="productid" class="form-control">
+                    <option>- Select -</option>
+                    <option *ngFor="let product of products" [value]="product.id">{{product.name}}</option>
+                </select>
+            </div>
+            <div class="col-sm-1">
+                <button type="button" class="btn btn-info" data-toggle="modal" data-target="#myModal">Product</button>
+            </div>
+        </div>
+    </div>
+    <!-- <div *ngIf="getProdutId()?.touched && getProdutId().invalid" class="alert alert-danger">
+        <div *ngIf="getProdutId()?.errors['required']">Product is requird</div>
+         <div *ngIf="getProductid()?.errors?.['isNumber']">  Not a valid number </div>
+    </div> -->
+    <div class="form-group">
+        <label for="id">Module Id</label>
+        <input formControlName="id" id="id" type="text" class="form-control">
+    </div>
+    <div *ngIf="getId()?.touched && getId()?.invalid" class="alert alert-danger">
+        <div *ngIf="getId()?.errors['required']"> Module Id is required </div>
+        <div *ngIf="getId()?.errors?.['isNumber']"> Not a valid number </div>
+    </div>
+    <div class="form-group">
+        <label for="name">Name</label>
+        <input formControlName="name" id="name" type="text" class="form-control">
+    </div>
+    <div *ngIf="getName()?.touched && getName()?.invalid" class="alert alert-danger">
+        <div *ngIf="getName()?.errors['required']"> Name is required </div>
+        <div *ngIf="getName()?.errors?.['minlength']"> Name should be greater than or equal to {{getName()?.errors?.['minlength'].requiredLength}} characters</div>
+        <div *ngIf="getName()?.errors?.['maxlength']"> Name should be less than or equal to {{getName()?.errors?.['maxlength'].requiredLength}} characters</div>
+    </div>
+    <div class="form-group">
+        <label for="description">Description</label>
+        <input formControlName="description" id="description" type="text" class="form-control">
+    </div>
+    <div *ngIf="getDescription()?.errors?.['minlength']" class="alert alert-danger"> Description should be greater than or equal to {{getDescription()?.errors?.['minlength'].requiredLength}} characters </div>
+    <div *ngIf="getDescription()?.errors?.['maxlength']" class="alert alert-danger"> Description should be less than or equal to {{getDescription()?.errors?.['maxlength'].requiredLength}} characters</div>
+    <div class="form-group">
+        <label for="status">Status</label>
+        <select formControlName="status" id="status" class="form-control">
+            <option *ngFor="let state of arrStatus" [value]="state.value">{{state.text}}</option>
+        </select>
+    </div>
+    <div *ngIf="getStatus()?.touched && getStatus()?.invalid" class="alert alert-danger">
+        <div *ngIf="getStatus()?.errors?.['required']"> Status is required </div>
+    </div>
+    <button (click)="create(f.value)" class="btn btn-primary">Save</button>
+    <button (click)="update(f.value)" class="btn btn-warning">Update</button>
+    <button (click)="clear(f.value)" class="btn btn-danger">Clear</button>
+
+    <!-- <common-modal>
+        <ng-container class="heading">Heading</ng-container>
+        <div class="body">
+            <div *ngFor="let _status of arrStatus"> <label class="form-control">{{_status.text}}</label> </div>
+        </div>
+    </common-modal> -->
+</form>
